@@ -14,8 +14,8 @@ exclude = ["examples/", "tests/", "target/"]
 
 [dependencies]
 tokio = { version = "1", features = ["full"] }
-hyper = { version = "1", features = ["http1", "server"] }
 hyper-util = { version = "0.1", features = ["tokio"] }
 http-body-util = "0.1"
 bytes = "1"
-http = "0.2"
+hyper = "1.7.0"
+http = "1.3.1"
