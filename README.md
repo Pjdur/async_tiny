@@ -1,3 +1,4 @@
+<h1 align="center">async_tiny</h1>
 <p align="center">
   <a href="https://crates.io/crates/async_tiny">
     <img src="https://img.shields.io/crates/v/async_tiny?style=flat-square" alt="Crates.io">
