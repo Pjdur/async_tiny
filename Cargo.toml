@@ -1,0 +1,21 @@
+[package]
+name = "async_tiny"
+version = "0.1.0"
+edition = "2021"
+authors = ["Pjdur"]
+description = "A minimal async HTTP server with a tiny_http-like feel, built on Hyper 1.x"
+license = "MIT"
+repository = "https://github.com/Pjdur/async_tiny"
+documentation = "https://docs.rs/async_tiny"
+readme = "README.md"
+keywords = ["http", "async", "server", "hyper", "minimal"]
+categories = ["network-programming", "web-programming", "asynchronous"]
+exclude = ["examples/", "tests/", "target/"]
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+hyper = { version = "1", features = ["http1", "server"] }
+hyper-util = { version = "0.1", features = ["tokio"] }
+http-body-util = "0.1"
+bytes = "1"
+http = "0.2"
