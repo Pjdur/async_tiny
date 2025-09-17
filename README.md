@@ -46,7 +46,11 @@ async fn main() -> std::io::Result<()> {
     Ok(())
 }
 ```
-
+> ⚠️ **Note:** If you want to use `#[tokio::main]` in your own code, you must add Tokio to your project manually:
+> ```bash
+> cargo add tokio
+> ```
+> Although this crate depends on Tokio internally, Rust requires that procedural macros like `#[tokio::main]` be declared directly in your own Cargo.toml to work properly.
 ---
 
 ## 📦 Request API
