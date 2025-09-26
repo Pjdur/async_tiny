@@ -1,6 +1,6 @@
 [package]
 name = "async_tiny"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["Pjdur"]
 description = "A minimal async HTTP server with a tiny_http-like feel, built on Hyper 1.x"

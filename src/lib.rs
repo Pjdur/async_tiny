@@ -18,7 +18,8 @@ use std::net::SocketAddr;
 use std::str::FromStr;
 
 use bytes::Bytes;
-use http::{HeaderMap, HeaderName, HeaderValue, Method, StatusCode, Uri};
+use http::{HeaderMap, Method, StatusCode, Uri};
+pub use http::{HeaderName, HeaderValue};
 use http_body_util::{BodyExt, Full};
 use hyper::body::Incoming as HyperBody;
 use hyper::{Request as HyperRequest, Response as HyperResponse};
@@ -232,6 +233,17 @@ impl Response {
 
 /// A simple "Name: value" header wrapper (tiny_http style).
 pub struct Header(pub HeaderName, pub HeaderValue);
+
+impl Header {
+    /// Creates a new Header from name and value strings.
+    pub fn new(name: &str, value: &str) -> Result<Self, HeaderParseError> {
+        let name = HeaderName::from_bytes(name.as_bytes())
+            .map_err(|_| HeaderParseError::InvalidName)?;
+        let value = HeaderValue::from_str(value)
+            .map_err(|_| HeaderParseError::InvalidValue)?;
+        Ok(Header(name, value))
+    }
+}
 
 #[derive(Debug)]
 pub enum HeaderParseError {
