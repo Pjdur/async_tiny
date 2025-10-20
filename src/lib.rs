@@ -255,6 +255,21 @@ impl Response {
             Header::from_str(&format!("Content-Type: {}", value)).expect("valid content type");
         self.with_header(header)
     }
+
+    /// Returns the HTTP status code of the response.
+    pub fn status_code(&self) -> u16 {
+        self.status.as_u16()
+    }
+
+    /// Returns the response body as a UTF-8 string.
+    pub fn body(&self) -> String {
+        String::from_utf8_lossy(&self.body).to_string()
+    }
+
+    /// Returns a reference to the response headers.
+    pub fn headers(&self) -> &HeaderMap {
+        &self.headers
+    }
 }
 
 /// A simple "Name: value" header wrapper (tiny_http style).
