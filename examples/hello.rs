@@ -1,4 +1,4 @@
-use async_tiny::{Server, Response};
+use async_tiny::{Response, Server};
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {

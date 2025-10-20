@@ -159,6 +159,32 @@ impl Request {
             .ok_or(RespondError::AlreadyResponded)?;
         tx.send(response).map_err(|_| RespondError::ChannelClosed)
     }
+
+    /// Creates a fake Request for testing purposes.
+    ///
+    /// This is useful for simulating incoming HTTP requests without starting a server.
+    ///
+    /// # Arguments
+    ///
+    /// * `method` - The HTTP method (e.g., `Method::GET`).
+    /// * `url` - The request URL path (e.g., `"/signup"`).
+    /// * `body` - The request body as bytes.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use async_tiny::{Request, Method};
+    /// let req = Request::fake(&Method::POST, "/submit", b"username=alice");
+    /// ```
+    pub fn fake(method: &Method, url: &str, body: &[u8]) -> Self {
+        Request {
+            method: method.clone(),
+            headers: HeaderMap::new(),
+            url: url.to_string(),
+            body: Bytes::copy_from_slice(body),
+            respond_tx: None,
+        }
+    }
 }
 
 impl Drop for Request {
@@ -237,10 +263,9 @@ pub struct Header(pub HeaderName, pub HeaderValue);
 impl Header {
     /// Creates a new Header from name and value strings.
     pub fn new(name: &str, value: &str) -> Result<Self, HeaderParseError> {
-        let name = HeaderName::from_bytes(name.as_bytes())
-            .map_err(|_| HeaderParseError::InvalidName)?;
-        let value = HeaderValue::from_str(value)
-            .map_err(|_| HeaderParseError::InvalidValue)?;
+        let name =
+            HeaderName::from_bytes(name.as_bytes()).map_err(|_| HeaderParseError::InvalidName)?;
+        let value = HeaderValue::from_str(value).map_err(|_| HeaderParseError::InvalidValue)?;
         Ok(Header(name, value))
     }
 }
